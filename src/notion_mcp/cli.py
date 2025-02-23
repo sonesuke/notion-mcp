@@ -6,14 +6,18 @@ mcp = FastMCP("Demo")
 
 
 # Add an addition tool
-@mcp.tool()
+@mcp.tool()  # type: ignore
 def add(a: int, b: int) -> int:
-    """Add two numbers"""
+    """
+    Add two numbers.
+    """
     return a + b
 
 
 # Add a dynamic greeting resource
-@mcp.resource("greeting://{name}")
+@mcp.resource("greeting://{name}")  # type: ignore
 def get_greeting(name: str) -> str:
-    """Get a personalized greeting"""
+    """
+    Get a personalized greeting.
+    """
     return f"Hello, {name}!"
