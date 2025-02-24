@@ -1,14 +1,6 @@
 import asyncio
-import mcp.types as types
-from mcp.server import Server
+from notion_mcp.core import app
 from mcp.server.stdio import stdio_server
-
-app = Server("example-server")
-
-
-@app.list_resources()  # type: ignore
-async def list_resources() -> list[types.Resource]:
-    return [types.Resource(uri="example://resource", name="Example Resource")]
 
 
 # pragma: no cover
