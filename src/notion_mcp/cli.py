@@ -1,23 +1,26 @@
-# server.py
-from mcp.server.fastmcp import FastMCP
+import asyncio
+import mcp.types as types
+from mcp.server import Server
+from mcp.server.stdio import stdio_server
 
-# Create an MCP server
-mcp = FastMCP("Demo")
-
-
-# Add an addition tool
-@mcp.tool()  # type: ignore
-def add(a: int, b: int) -> int:
-    """
-    Add two numbers.
-    """
-    return a + b
+app = Server("example-server")
 
 
-# Add a dynamic greeting resource
-@mcp.resource("greeting://{name}")  # type: ignore
-def get_greeting(name: str) -> str:
-    """
-    Get a personalized greeting.
-    """
-    return f"Hello, {name}!"
+@app.list_resources()  # type: ignore
+async def list_resources() -> list[types.Resource]:
+    return [types.Resource(uri="example://resource", name="Example Resource")]
+
+
+# pragma: no cover
+async def main() -> None:
+    async with stdio_server() as streams:
+        await app.run(streams[0], streams[1], app.create_initialization_options())
+
+
+# pragma: no cover
+def run_main() -> None:
+    asyncio.run(main())
+
+
+if __name__ == "__main__":
+    run_main()

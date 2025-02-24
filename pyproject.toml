@@ -12,11 +12,6 @@ dependencies = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.mypy]
-files = ["src", "tests"]
-strict = true
-disable_error_code = ["import-untyped"]
-
 [mypy-mcp.tool]
 ignore_errors = true
 
@@ -27,7 +22,23 @@ dev = [
     "docformatter>=1.7.5",
     "mypy==1.15.0",
     "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.3",
     "pytest-cov>=6.0.0",
+    "pytest-mock>=3.14.0",
     "ruff==0.9.7",
 ]
 
+[project.scripts]
+cli = "notion_mcp.cli:run_main"
+
+[tool.mypy]
+files = ["src", "tests"]
+strict = true
+disable_error_code = ["import-untyped"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+concurrency = ["thread"]

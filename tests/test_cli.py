@@ -1,5 +1,8 @@
-from notion_mcp.cli import add
+import pytest
+from notion_mcp.cli import list_resources
 
 
-def test_add() -> None:
-    assert add(1, 2) == 3
+@pytest.mark.asyncio  # type: ignore
+async def test_list_resources() -> None:
+    result = await list_resources()
+    assert len(result) == 1
