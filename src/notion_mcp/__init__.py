@@ -1,2 +1,1 @@
-def hello() -> str:
-    return "Hello from notion-mcp!"
+from .cli import run_main  # noqa: F401
